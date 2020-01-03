@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<attribute name="id" value="html-body"/>-->
+        <!--<attribute name="class" value="preview-window"/>-->
+        <!--&lt;!&ndash;    <referenceContainer name="backend.page" remove="true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;    <referenceContainer name="menu.wrapper" remove="true"/>&ndash;&gt;-->
+        <!--<referenceContainer name="content">-->
+        <!--<container name="email_preview">-->
+        <!--&lt;!&ndash;<uiComponent name="preview_form"/>&ndash;&gt;-->
+        <!--<block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\Form" name="template_form" template="Overdose_PreviewEmail::form.phtml"/>-->
+        <!--<block class="Magento\Framework\View\Element\Template" name="page.block" template="Overdose_PreviewEmail::preview.phtml">-->
+        <!--<block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\TemplateEmail" name="email.template.content" as="email.template.content"/>-->
+        <!--</block>-->
+        <!--</container>-->
+        <!--</referenceContainer>-->
+
+        <referenceContainer name="content">
+            <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\Form" name="template_form"
+                   template="Overdose_PreviewEmail::form.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

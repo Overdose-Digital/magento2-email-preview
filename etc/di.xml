@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Email\Model\ResourceModel\Template\Preview\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">email_template</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Email\Model\ResourceModel\Template</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="preview_listing_data_source" xsi:type="string">
+                    Magento\Email\Model\ResourceModel\Template\Preview\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
