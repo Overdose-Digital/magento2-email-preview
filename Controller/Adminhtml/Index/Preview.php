@@ -19,7 +19,6 @@ class Preview extends Action
     protected $resultPageFactory = false;
 
     /**
-     * Index constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */

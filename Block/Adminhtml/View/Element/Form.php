@@ -13,6 +13,7 @@ use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
 
 
+
 class Form extends Template
 {
     /**
@@ -31,9 +32,20 @@ class Form extends Template
     /**
      * @var FormKey
      */
-
+    /**
+     * @var FormKey
+     */
     protected $formKey;
 
+    /**
+     * Form constructor.
+     * @param Context $context
+     * @param array $data
+     * @param CollectionFactory $collectionFactory
+     * @param FormKey $formKey
+     * @param StoreRepository $storeRepository
+     * @param CustomerCollection $customerFactory
+     */
     public function __construct
     (
         Context $context,
@@ -51,11 +63,11 @@ class Form extends Template
     }
 
     /**
-     *
+     * @return int
      */
     public function getTemplateId()
     {
-        return $this->getRequest()->getParam('template_id');
+        return $this->getRequest()->getParam('id');
     }
 
     /**Return Order Id
@@ -73,8 +85,8 @@ class Form extends Template
         return $orders;
     }
 
-    /**Return Stores Name and Id
-     *
+    /**
+     *Return Stores Name and Id
      * @return array
      */
     public function getStores()
@@ -87,17 +99,18 @@ class Form extends Template
         return $stores;
     }
 
+    /**
+     *Get Customer Full Name
+     * @return array
+     */
     public function getCustomersFullName()
     {
-
         $customersFullName = [];
-
         foreach ($this->customers->getData() as $customer) {
             $firstName = $customer['firstname'];
             $lastName = $customer['lastname'];
             $customersFullName[$customer['entity_id']] = "$firstName $lastName";
         }
-
         return $customersFullName;
     }
 

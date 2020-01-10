@@ -7,13 +7,23 @@ use Magento\Email\Model\Template\Config;
 
 class DataProvider
 {
+    /**
+     * @var Config
+     */
     public $emailConfig;
 
+    /**
+     * DataProvider constructor.
+     * @param Config $emailConfig
+     */
     public function __construct(Config $emailConfig)
     {
         $this->emailConfig = $emailConfig;
     }
 
+    /**
+     * @return array
+     */
     public function getTemplateConfig()
     {
         $options = array_merge(

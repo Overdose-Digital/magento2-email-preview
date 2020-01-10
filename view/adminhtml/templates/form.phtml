@@ -2,77 +2,41 @@
 /** @var \Overdose\PreviewEmail\Block\Adminhtml\View\Element\Form $block */
 ?>
 
-<!--    <div class="col-md-12 column" data-bind="scope: 'ajaxLoad'">-->
-<!--        <form name="form_template_ajax"  method="#" id="form_template_ajax">-->
-<!--            <select name="oreder_id" form="form_template_ajax" class="order_id">-->
-<!--                <option disabled selected>Select Order ID</option>-->
-<!--                --><?php //foreach ($block->getOrderId() as $order) { ?>
-<!--                    <option value="--><?php //echo $order ?><!--">ID:--><?php //echo $order?><!--</option>-->
-<!--                --><?php //} ?>
-<!--            </select>-->
-<!--            <button data-bind="click: ajaxRequest">-->
-<!--                <span>Load Template Data</span>-->
-<!--            </button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--<script type="text/x-magento-init">-->
-<!--{-->
-<!--    "*": {-->
-<!--        "Magento_Ui/js/core/app": {-->
-<!--            "components": {-->
-<!--                "ajaxLoad": {-->
-<!--                    "component": "Overdose_PreviewEmail/js/ajax_template",-->
-<!--                    "config": {-->
-<!--                        "baseUrl": "--><?php //echo $block->escapeHtml($block->getBaseUrl()) ?><!--"-->
-<!--                    }-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-<!---->
-<!--}-->
-<!--</script>-->
-
-<?php $block->getCustomersFullName(); ?>
 <div class="button-column">
-    <form method="GET" id="form_template" action="<?php echo $this->getUrl('preview_email/index/preview') ?>">
-        <select name="order_id" class="order_id">
+    <form class="admin__fieldset form-inline" method="GET" id="form_template" action="<?php echo $this->getUrl('preview_email/index/preview') ?>">
+        <select name="order_id" class="admin__control-select">
             <option disabled selected>Select Order ID</option>
             <?php foreach ($block->getOrderId() as $order) { ?>
                 <option value="<?php echo $order ?>">ID:<?php echo $order ?></option>
             <?php } ?>
         </select>
-        <select name="customer_id" class="customer_id">
+        <select name="customer_id" class="admin__control-select">
             <option disabled selected>Select Customer</option>
             <?php foreach ($block->getCustomersFullName() as $customerId => $customerName) { ?>
                 <option value="<?php echo $customerId ?>"><?php echo $customerName ?></option>
             <?php } ?>
         </select>
-        <select name="store_id" class="store_id">
+        <select name="store_id" class="admin__control-select">
             <option disabled selected>Select Store</option>
             <?php foreach ($block->getStores() as $storeId => $storeName) { ?>
                 <option value="<?php echo $storeId ?>"><?php echo $storeName ?></option>
             <?php } ?>
         </select>
-        <input name="template_id" id="template_id" type="hidden" value="<?php echo $block->getTemplateId(); ?>"/>
+        <input name="id" id="id" type="hidden" value="<?php echo $block->getTemplateId(); ?>"/>
         <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */
         echo $block->getFormKey(); ?>"/>
-        <button type="button" id="popup-submit">
+        <button class="action-default button" type="button" id="popup-submit">
             <span><?php echo __('Preview') ?></span>
         </button>
     </form
 </div>
 <script type="text/x-magento-init">
 {
-
     "#form_template": {
         "Overdose_PreviewEmail/js/popup_email":{
             "url": "<?php echo $this->getUrl('preview_email/index/preview') ?>"
         }
     }
 }
-
-
-
 </script>
 

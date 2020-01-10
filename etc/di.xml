@@ -1,18 +1,25 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <virtualType name="Magento\Email\Model\ResourceModel\Template\Preview\Collection"
+    <preference
+            for="Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface"
+            type="Overdose\PreviewEmail\Model\PreviewTemplateRepository"/>
+    <preference
+            for="Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface"
+            type="Overdose\PreviewEmail\Model\PreviewTemplate"/>
+    <virtualType name="Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">email_template</argument>
-            <argument name="resourceModel" xsi:type="string">Magento\Email\Model\ResourceModel\Template</argument>
+            <argument name="mainTable" xsi:type="string">preview_email_template</argument>
+            <argument name="resourceModel" xsi:type="string">Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate
+            </argument>
         </arguments>
     </virtualType>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="preview_listing_data_source" xsi:type="string">
-                    Magento\Email\Model\ResourceModel\Template\Preview\Collection
+                    Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate\Grid\Collection
                 </item>
             </argument>
         </arguments>

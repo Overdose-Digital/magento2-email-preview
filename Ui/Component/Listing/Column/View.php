@@ -13,7 +13,6 @@ class View extends Column
 {
     const URL_PATH_VIEW = 'preview_email/index/view';
 
-
     /**
      * URL builder
      *
@@ -49,13 +48,13 @@ class View extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                if (isset($item['template_id'])) {
+                if (isset($item['id'])) {
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_VIEW,
                                 [
-                                    'template_id' => $item['template_id']
+                                    'id' => $item['id']
                                 ]
                             ),
                             'label' => __('View')
