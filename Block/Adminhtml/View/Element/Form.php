@@ -11,8 +11,7 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
-
-
+use Overdose\PreviewEmail\Model\EmailTemplate\PrepareTemplate;
 
 class Form extends Template
 {
@@ -36,6 +35,10 @@ class Form extends Template
      * @var FormKey
      */
     protected $formKey;
+    /**
+     * @var PrepareTemplate
+     */
+    protected $prepareTemplate;
 
     /**
      * Form constructor.
@@ -45,33 +48,29 @@ class Form extends Template
      * @param FormKey $formKey
      * @param StoreRepository $storeRepository
      * @param CustomerCollection $customerFactory
+     * @param PrepareTemplate $prepareTemplate
      */
     public function __construct
     (
         Context $context,
-        array $data = [],
         CollectionFactory $collectionFactory,
         FormKey $formKey,
         StoreRepository $storeRepository,
-        CustomerCollection $customerFactory
+        CustomerCollection $customerFactory,
+        PrepareTemplate $prepareTemplate,
+        array $data = []
+
     ) {
         $this->formKey = $formKey;
         $this->customers = $customerFactory->create();
         $this->storeRepository = $storeRepository;
         $this->collection = $collectionFactory->create();
+        $this->prepareTemplate = $prepareTemplate;
         parent::__construct($context, $data);
     }
 
     /**
-     * @return int
-     */
-    public function getTemplateId()
-    {
-        return $this->getRequest()->getParam('id');
-    }
-
-    /**Return Order Id
-     *
+     *Return Order Id
      * @return array
      */
     public function getOrderId()
@@ -114,4 +113,21 @@ class Form extends Template
         return $customersFullName;
     }
 
+    /**
+     *
+     */
+    public function getPreparedTemplate()
+    {
+        $this->prepareTemplate->prepareTemplate();
+        $this->prepareTemplate->setTemplateName();
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getTemplateData()
+    {
+        return $this->prepareTemplate->prepareTemplateData();
+    }
 }

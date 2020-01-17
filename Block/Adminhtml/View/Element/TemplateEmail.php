@@ -12,14 +12,10 @@ use Magento\Email\Model\TemplateFactory;
 use Magento\Framework\Filter\Input\MaliciousCode;
 use Magento\Store\Model\App\Emulation;
 use Overdose\PreviewEmail\Model\EmailTemplate\TemplateData;
-use Overdose\PreviewEmail\Model\PreviewTemplateRepository;
+
 
 class TemplateEmail extends Preview
 {
-    /**
-     * @var PreviewTemplateRepository
-     */
-    public $repository;
     /**
      * @var TemplateData
      */
@@ -35,7 +31,6 @@ class TemplateEmail extends Preview
      * @param TemplateFactory $emailFactory
      * @param Emulation
      * @param TemplateData
-     * @param PreviewTemplateRepository
      * @param array $data
      */
     public function __construct(
@@ -44,33 +39,11 @@ class TemplateEmail extends Preview
         TemplateFactory $emailFactory,
         Emulation $emulation,
         TemplateData $templateData,
-        PreviewTemplateRepository $repository,
         array $data = []
     ) {
         parent::__construct($context, $maliciousCode, $emailFactory, $data);
         $this->emulation = $emulation;
         $this->templateData = $templateData;
-        $this->repository = $repository;
-    }
-
-    /**
-     * Load Template
-     * @param int $id
-     * @return Template
-     */
-    public function loadTemplate(int $id)
-    {
-        $template = $this->_emailFactory->create();
-        $emailTemplate = $this->repository->getById($id);
-        $templateId = $emailTemplate['template_id'];
-        if ($emailTemplate['template_type'] == 'files') {
-            $template->setForcedArea($templateId);
-            $template->loadDefault($templateId);
-            return $template;
-        } else {
-            $template->load($templateId);
-            return $template;
-        }
     }
 
     /**
@@ -109,6 +82,19 @@ class TemplateEmail extends Preview
 
         $this->emulation->stopEnvironmentEmulation();
         return $templateProcessed;
+    }
+
+    /**
+     * Load Template
+     * @param $id
+     * @return Template
+     */
+    public function loadTemplate($id)
+    {
+        $template = $this->_emailFactory->create();
+        $template->setForcedArea($id);
+        $template->loadDefault($id);
+        return $template;
     }
 
 }

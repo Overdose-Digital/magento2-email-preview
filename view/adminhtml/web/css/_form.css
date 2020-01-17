@@ -1,0 +1,16 @@
+.form_template {
+    width: 340px;
+}
+
+.select-name {
+    width: 120px;
+}
+
+.admin__control-select {
+    width: 270px;
+    margin-bottom: 10px;
+}
+
+#popup-submit {
+    margin-top: 10px;
+}
