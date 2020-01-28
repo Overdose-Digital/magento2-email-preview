@@ -5,26 +5,24 @@
 <div class="button-column">
     <form class="form_template admin__fieldset form-inline" method="GET" id="form_template"
           action="<?php echo $this->getUrl('preview_email/index/preview') ?>">
-        <p class="select_name">Email Template ID</p>
-        <select name="template_id" class="template_id admin__control-select">
-            <?php foreach ($block->getTemplateData() as $template) { ?>
-                <option value="<?php echo $template['template_id'] ?>"><?php echo $template['template_name'] ?></option>
-            <?php } ?>
-        </select>
-        <p class="select_name">Order ID</p>
-        <select name="order_id" class="order_id admin__control-select">
-            <option disabled selected>Select Order ID</option>
-            <?php foreach ($block->getOrderId() as $order) { ?>
-                <option value="<?php echo $order ?>"><?php echo $order ?></option>
-            <?php } ?>
-        </select>
-        <p class="select_name">Customer Name</p>
-        <select name="customer_id" class="customer_id admin__control-select">
-            <option disabled selected>Select Customer</option>
-            <?php foreach ($block->getCustomersFullName() as $customerId => $customerName) { ?>
-                <option value="<?php echo $customerId ?>"><?php echo $customerName ?></option>
-            <?php } ?>
-        </select>
+        <?php if ($block->getOptionType() === 'order' || $block->getOptionType() === 'invoice'): ?>
+            <p class="select_name">Order ID</p>
+            <select name="order_id" class="order_id admin__control-select">
+                <option disabled selected>Select Order ID</option>
+                <?php foreach ($block->getOrderId() as $order) { ?>
+                    <option value="<?php echo $order ?>"><?php echo $order ?></option>
+                <?php } ?>
+            </select>
+        <?php endif; ?>
+        <?php if ($block->getOptionType() === 'customer'): ?>
+            <p class="select_name">Customer Name</p>
+            <select name="customer_id" class="customer_id admin__control-select">
+                <option disabled selected>Select Customer</option>
+                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName) { ?>
+                    <option value="<?php echo $customerId ?>"><?php echo $customerName ?></option>
+                <?php } ?>
+            </select>
+        <?php endif; ?>
         <p class="select_name">Store Name</p>
         <select name="store_id" class="store_id admin__control-select">
             <option disabled selected>Select Store</option>
@@ -32,6 +30,7 @@
                 <option value="<?php echo $storeId ?>"><?php echo $storeName ?></option>
             <?php } ?>
         </select>
+        <input name="id" id="id" type="hidden" value="<?php echo $block->getPreviewTemplateId(); ?>"/>
         <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */
         echo $block->getFormKey(); ?>"/>
         <button class="action-default button" type="button" id="popup-submit">
@@ -47,5 +46,6 @@
         }
     }
 }
+
 </script>
 

@@ -11,7 +11,7 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
-use Overdose\PreviewEmail\Model\EmailTemplate\PrepareTemplate;
+
 
 class Form extends Template
 {
@@ -35,10 +35,6 @@ class Form extends Template
      * @var FormKey
      */
     protected $formKey;
-    /**
-     * @var PrepareTemplate
-     */
-    protected $prepareTemplate;
 
     /**
      * Form constructor.
@@ -48,7 +44,6 @@ class Form extends Template
      * @param FormKey $formKey
      * @param StoreRepository $storeRepository
      * @param CustomerCollection $customerFactory
-     * @param PrepareTemplate $prepareTemplate
      */
     public function __construct
     (
@@ -57,7 +52,6 @@ class Form extends Template
         FormKey $formKey,
         StoreRepository $storeRepository,
         CustomerCollection $customerFactory,
-        PrepareTemplate $prepareTemplate,
         array $data = []
 
     ) {
@@ -65,8 +59,12 @@ class Form extends Template
         $this->customers = $customerFactory->create();
         $this->storeRepository = $storeRepository;
         $this->collection = $collectionFactory->create();
-        $this->prepareTemplate = $prepareTemplate;
         parent::__construct($context, $data);
+    }
+
+    public function getPreviewTemplateId()
+    {
+        return $this->getRequest()->getParam('id');
     }
 
     /**
@@ -113,21 +111,8 @@ class Form extends Template
         return $customersFullName;
     }
 
-    /**
-     *
-     */
-    public function getPreparedTemplate()
+    public function getOptionType()
     {
-        $this->prepareTemplate->prepareTemplate();
-        $this->prepareTemplate->setTemplateName();
-
-    }
-
-    /**
-     * @return array
-     */
-    public function getTemplateData()
-    {
-        return $this->prepareTemplate->prepareTemplateData();
+        return $this->getRequest()->getParam('type');
     }
 }

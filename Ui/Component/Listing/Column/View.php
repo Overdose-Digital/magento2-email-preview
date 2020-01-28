@@ -54,7 +54,8 @@ class View extends Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_VIEW,
                                 [
-                                    'id' => $item['id']
+                                    'id' => $item['id'],
+                                    'type' => $item['type']
                                 ]
                             ),
                             'label' => __('View')

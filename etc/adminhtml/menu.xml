@@ -3,8 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Overdose_PreviewEmail::preview" title="Preview Email" module="Overdose_PreviewEmail" sortOrder="10"
-             action="preview_email/index/view" resource="Overdose_PreviewEmail::preview"
+             action="preview_email/index/index" resource="Overdose_PreviewEmail::preview"
              parent="Magento_Backend::marketing_communications"/>
-
     </menu>
 </config>

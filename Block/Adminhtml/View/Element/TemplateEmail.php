@@ -11,26 +11,33 @@ use Magento\Email\Model\Template;
 use Magento\Email\Model\TemplateFactory;
 use Magento\Framework\Filter\Input\MaliciousCode;
 use Magento\Store\Model\App\Emulation;
-use Overdose\PreviewEmail\Model\EmailTemplate\TemplateData;
-
+use Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface as Repository;
+use Overdose\PreviewEmail\Model\Customer;
+use Overdose\PreviewEmail\Model\Order;
 
 class TemplateEmail extends Preview
 {
     /**
-     * @var TemplateData
+     * @var Repository
      */
-    public $templateData;
+    public $repository;
     /**
      * @var Emulation
      */
     private $emulation;
+    /**
+     * @var Order
+     */
+    private $orderData;
+
+    private $customerData;
 
     /**
      * @param Context $context
      * @param MaliciousCode $maliciousCode
      * @param TemplateFactory $emailFactory
      * @param Emulation
-     * @param TemplateData
+     * @param Repository
      * @param array $data
      */
     public function __construct(
@@ -38,12 +45,17 @@ class TemplateEmail extends Preview
         MaliciousCode $maliciousCode,
         TemplateFactory $emailFactory,
         Emulation $emulation,
-        TemplateData $templateData,
+
+        Repository $repository,
+        Order $order,
+        Customer $customer,
         array $data = []
     ) {
         parent::__construct($context, $maliciousCode, $emailFactory, $data);
         $this->emulation = $emulation;
-        $this->templateData = $templateData;
+        $this->repository = $repository;
+        $this->orderData = $order;
+        $this->customerData = $customer;
     }
 
     /**
@@ -55,7 +67,9 @@ class TemplateEmail extends Preview
     {
         $request = $this->getRequest();
 
-        $id = $request->getParam('id');
+        $previewTemplate = $this->repository->getById($request->getParam('id'));
+
+        $id = $this->_scopeConfig->getValue($previewTemplate->getConfigPath());
 
         if (!empty($request->getParam('store_id')) && $request->getParam('store_id') != 'undefined') {
             $storeId = $this->getRequest()->getParam('store_id');
@@ -65,9 +79,7 @@ class TemplateEmail extends Preview
         $this->emulation->startEnvironmentEmulation($storeId, 'frontend');
         /** @var $template Template */
         $template = $this->loadTemplate($id);
-        $emailTemplateVars = $this->templateData->getTemplateData($request->getParams());
-        $template->emulateDesign($storeId);
-
+        $emailTemplateVars = $this->getTemplateData($previewTemplate->getFields(), $request->getParams());
         $template->getProcessedTemplate($emailTemplateVars);
         $templateProcessed = $this->_appState->emulateAreaCode(
             AbstractTemplate::DEFAULT_DESIGN_AREA,
@@ -95,6 +107,33 @@ class TemplateEmail extends Preview
         $template->setForcedArea($id);
         $template->loadDefault($id);
         return $template;
+    }
+
+    private function getTemplateData($fields, $requestId)
+    {
+        $typeData = explode(',', $fields);
+        foreach ($typeData as $value) {
+            switch ($value) {
+                case 'order':
+                    if (!empty($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
+                        $templateData = $this->orderData->getVars($requestId['order_id']);
+                        break;
+                    } else {
+
+                        break;
+                    }
+                case 'customer':
+                    if (!empty($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
+                        $templateData = $this->customerData->getVars($requestId['customer_id']);
+                        break;
+                    } else {
+                        break;
+                    }
+                default:
+                    $templateData = [];
+            }
+        }
+        return empty($templateData) ? $templateData = [] : $templateData;
     }
 
 }
