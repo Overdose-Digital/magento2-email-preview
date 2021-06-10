@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <!--<update handle="empty" />-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="menu.wrapper" remove="true"/>
         <referenceContainer name="header.inner.right" remove="true"/>
         <referenceContainer name="content">
-            <!--            <block class="Overdose\PreviewEmail\Block\Adminhtml\Preview\ModelOverlay" template="Overdose_PreviewEmail::modal_overlay.phtml" name="modelOverlay" as="modalOverlay">-->
             <block class="Magento\Framework\View\Element\Template" name="page.block"
                    template="Overdose_PreviewEmail::preview.phtml">
                 <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\TemplateEmail"
                        name="email.template.content" as="email.template.content"/>
             </block>
-            <!--            </block>-->
         </referenceContainer>
     </body>
 </page>

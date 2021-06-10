@@ -1,18 +1,12 @@
 <?php
 
-
 namespace Overdose\PreviewEmail\Model;
 
-use Magento\Customer\Api\CustomerRepositoryInterface as CustomerRepository;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\ResourceModel\Customer as Resource;
 
 class Customer
 {
-    /**
-     * @var CustomerRepository
-     */
-    protected $_customerRepository;
     /**
      * @var CustomerFactory
      */
@@ -24,20 +18,16 @@ class Customer
 
     /**
      * Customer constructor.
-     * @param CustomerRepository $customerRepository
      * @param CustomerFactory $customerFactory
      * @param Resource $resource
      */
     public function __construct
     (
-        CustomerRepository $customerRepository,
         CustomerFactory $customerFactory,
         Resource $resource
     ) {
-        $this->_customerRepository = $customerRepository;
         $this->customerFactory = $customerFactory;
         $this->resource = $resource;
-
     }
 
     /**

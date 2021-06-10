@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Overdose\PreviewEmail\Model;
 
 use Magento\Payment\Helper\Data as PaymentHelper;
-use Magento\Sales\Model\Order as OrderModel;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\OrderRepository;
@@ -43,7 +42,6 @@ class Order
         $this->orderRepository = $orderRepository;
         $this->paymentData = $paymentHelper;
         $this->invoice = $invoice;
-
     }
 
     /**
@@ -69,7 +67,7 @@ class Order
     }
 
     /**
-     * @param OrderModel $order
+     * @param \Magento\Sales\Model\Order $order
      * @return string|null
      */
     protected function getFormattedBillingAddress($order)
@@ -78,8 +76,8 @@ class Order
     }
 
     /**
-     * @param OrderModel $order
-     * @return null
+     * @param \Magento\Sales\Model\Order $order
+     * @return string|null
      */
     protected function getFormattedShippingAddress($order)
     {
@@ -87,7 +85,7 @@ class Order
     }
 
     /**
-     * @param OrderModel $order
+     * @param \Magento\Sales\Model\Order $order
      * @return string
      */
     protected function getPaymentHtml($order)
