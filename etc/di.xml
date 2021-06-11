@@ -24,8 +24,8 @@
     </type>
     <type name="Overdose\PreviewEmail\Block\Adminhtml\View\Element\TemplateEmail">
         <arguments>
-            <argument name="orderData" xsi:type="object">Overdose\PreviewEmail\Model\Order\Proxy</argument>
-            <argument name="customerData" xsi:type="object">Overdose\PreviewEmail\Model\Customer\Proxy</argument>
+            <argument name="order" xsi:type="object">Overdose\PreviewEmail\Model\Order\Proxy</argument>
+            <argument name="customer" xsi:type="object">Overdose\PreviewEmail\Model\Customer\Proxy</argument>
         </arguments>
     </type>
 </config>
