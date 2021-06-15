@@ -1,14 +1,19 @@
-# Change Log
+# Changelog
+All notable changes to this project will be documented in this file.
 
-### 2021-06-10
+## [1.1.0] - 2021-06-10
+### Fixed
+- remove Install, Upgrade script, replace by declarative schema, Patch/Data
+- remove empty spaces
+- remove imports, replace to full names
+- remove unused code
 
-* remove Install, Upgrade script, replace by declarative schema, Patch/Data
-* remove empty spaces
-* remove imports, replace to full names
-* remove unused code
+### Fixed
 * edit doc blocks
 * change variables names
 * update readme file
+
+### Added
 * add proxies
 * add changelog file
   

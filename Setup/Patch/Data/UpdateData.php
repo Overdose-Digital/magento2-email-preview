@@ -2,7 +2,6 @@
 
 namespace Overdose\PreviewEmail\Setup\Patch\Data;
 
-
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Overdose\PreviewEmail\Model\PreviewTemplateFactory;
