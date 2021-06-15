@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [1.1.0] - 2021-06-10
-### Fixed
+### Remove
 - remove Install, Upgrade script, replace by declarative schema, Patch/Data
 - remove empty spaces
 - remove imports, replace to full names
