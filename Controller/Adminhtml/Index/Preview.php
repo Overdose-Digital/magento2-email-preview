@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Controller\Adminhtml\Index;
 
-
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
@@ -26,11 +25,9 @@ class Preview extends Action
         Context $context,
         PageFactory $resultPageFactory
     ) {
-
         $this->resultPageFactory = $resultPageFactory;
 
         parent::__construct($context);
-
     }
 
     /**
@@ -43,6 +40,4 @@ class Preview extends Action
 
         return $resultPage;
     }
-
-
 }

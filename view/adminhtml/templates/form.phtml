@@ -3,13 +3,13 @@
 ?>
 
 <div class="button-column">
-    <form class="form_template admin__fieldset form-inline" method="GET" id="form_template"
-          action="<?php echo $this->getUrl('preview_email/index/preview') ?>">
+    <form class="form_template admin__fieldset form-inline"
+          action="<?php echo $this->getUrl('preview_email/index/preview') ?>" method="GET" id="form_template">
         <?php if ($block->getOptionType() === 'order' || $block->getOptionType() === 'invoice'): ?>
             <p class="select_name">Order ID</p>
             <select name="order_id" class="order_id admin__control-select">
                 <option disabled selected>Select Order ID</option>
-                <?php foreach ($block->getOrderId() as $order) { ?>
+                <?php foreach ($block->getOrderIds() as $order) { ?>
                     <option value="<?php echo $order ?>"><?php echo $order ?></option>
                 <?php } ?>
             </select>
@@ -30,9 +30,8 @@
                 <option value="<?php echo $storeId ?>"><?php echo $storeName ?></option>
             <?php } ?>
         </select>
-        <input name="id" id="id" type="hidden" value="<?php echo $block->getPreviewTemplateId(); ?>"/>
-        <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */
-        echo $block->getFormKey(); ?>"/>
+        <input name="id" id="preview_template_id" type="hidden" value="<?php echo $block->getPreviewTemplateId(); ?>"/>
+        <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */echo $block->getFormKey(); ?>"/>
         <button class="action-default button" type="button" id="popup-submit">
             <span><?php echo __('Preview') ?></span>
         </button>
@@ -46,6 +45,4 @@
         }
     }
 }
-
 </script>
-

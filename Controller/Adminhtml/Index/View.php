@@ -38,6 +38,4 @@ class View extends Action
         return $resultPage = $this->resultPageFactory->create();
 
     }
-
-
 }

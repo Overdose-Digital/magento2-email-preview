@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Overdose\PreviewEmail\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
@@ -25,11 +24,9 @@ class Index extends Action
         Context $context,
         PageFactory $resultPageFactory
     ) {
-
         $this->resultPageFactory = $resultPageFactory;
 
         parent::__construct($context);
-
     }
 
     /**

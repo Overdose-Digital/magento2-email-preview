@@ -1,13 +1,9 @@
 <?php
 
-
 namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 
-use Exception;
 use Magento\Backend\Block\Template\Context;
 use Magento\Email\Block\Adminhtml\Template\Preview;
-use Magento\Email\Model\AbstractTemplate;
-use Magento\Email\Model\Template;
 use Magento\Email\Model\TemplateFactory;
 use Magento\Framework\Filter\Input\MaliciousCode;
 use Magento\Store\Model\App\Emulation;
@@ -20,7 +16,7 @@ class TemplateEmail extends Preview
     /**
      * @var Repository
      */
-    public $repository;
+    public $previewTemplateRepository;
     /**
      * @var Emulation
      */
@@ -53,7 +49,7 @@ class TemplateEmail extends Preview
     ) {
         parent::__construct($context, $maliciousCode, $emailFactory, $data);
         $this->emulation = $emulation;
-        $this->repository = $repository;
+        $this->previewTemplateRepository = $repository;
         $this->orderData = $order;
         $this->customerData = $customer;
     }
@@ -61,14 +57,12 @@ class TemplateEmail extends Preview
     /**
      * Prepare html output
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     protected function _toHtml()
     {
         $request = $this->getRequest();
-
-        $previewTemplate = $this->repository->getById($request->getParam('id'));
-
+        $previewTemplate = $this->previewTemplateRepository->getById($request->getParam('preview_template_id'));
         $id = $this->_scopeConfig->getValue($previewTemplate->getConfigPath());
 
         if (!empty($request->getParam('store_id')) && $request->getParam('store_id') != 'undefined') {
@@ -77,12 +71,12 @@ class TemplateEmail extends Preview
             $storeId = $this->getAnyStoreView()->getId();
         }
         $this->emulation->startEnvironmentEmulation($storeId, 'frontend');
-        /** @var $template Template */
+        /** @var $template \Magento\Email\Model\Template */
         $template = $this->loadTemplate($id);
         $emailTemplateVars = $this->getTemplateData($previewTemplate->getFields(), $request->getParams());
         $template->getProcessedTemplate($emailTemplateVars);
         $templateProcessed = $this->_appState->emulateAreaCode(
-            AbstractTemplate::DEFAULT_DESIGN_AREA,
+            \Magento\Email\Model\AbstractTemplate::DEFAULT_DESIGN_AREA,
             [$template, 'getProcessedTemplate']
         );
 
@@ -99,7 +93,7 @@ class TemplateEmail extends Preview
     /**
      * Load Template
      * @param $id
-     * @return Template
+     * @return \Magento\Email\Model\Template
      */
     public function loadTemplate($id)
     {
@@ -117,23 +111,17 @@ class TemplateEmail extends Preview
                 case 'order':
                     if (!empty($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
                         $templateData = $this->orderData->getVars($requestId['order_id']);
-                        break;
-                    } else {
-
-                        break;
                     }
+                    break;
                 case 'customer':
                     if (!empty($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
                         $templateData = $this->customerData->getVars($requestId['customer_id']);
-                        break;
-                    } else {
-                        break;
                     }
+                    break;
                 default:
                     $templateData = [];
             }
         }
         return empty($templateData) ? $templateData = [] : $templateData;
     }
-
 }

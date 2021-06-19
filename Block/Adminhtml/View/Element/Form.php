@@ -12,13 +12,12 @@ use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
 
-
 class Form extends Template
 {
     /**
      * @var Collection
      */
-    public $collection;
+    public $orderCollection;
     /**
      * @var StoreRepository
      */
@@ -53,12 +52,11 @@ class Form extends Template
         StoreRepository $storeRepository,
         CustomerCollection $customerFactory,
         array $data = []
-
     ) {
         $this->formKey = $formKey;
         $this->customers = $customerFactory->create();
         $this->storeRepository = $storeRepository;
-        $this->collection = $collectionFactory->create();
+        $this->orderCollection = $collectionFactory->create();
         parent::__construct($context, $data);
     }
 
@@ -68,13 +66,13 @@ class Form extends Template
     }
 
     /**
-     *Return Order Id
+     * Get Order Ids
      * @return array
      */
-    public function getOrderId()
+    public function getOrderIds()
     {
         $orders = [];
-        foreach ($this->collection as $order) {
+        foreach ($this->orderCollection as $order) {
             /** @var Order $order */
             $orders[] = $order->getIncrementId();
         }
@@ -83,7 +81,7 @@ class Form extends Template
     }
 
     /**
-     *Return Stores Name and Id
+     * Return Stores Name and Id
      * @return array
      */
     public function getStores()
@@ -97,7 +95,7 @@ class Form extends Template
     }
 
     /**
-     *Get Customer Full Name
+     * Get Customer Full Name
      * @return array
      */
     public function getCustomersFullName()

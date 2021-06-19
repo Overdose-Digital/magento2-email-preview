@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
 use Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface;
 use Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface;
-use Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate as Resource;
+use Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate as PreviewTemplateResource;
 use Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate\CollectionFactory;
 
 class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
@@ -18,7 +17,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     /**
      * @var Resource
      */
-    public $resource;
+    public $previewTemplateResource;
     /**
      * @var CollectionFactory
      */
@@ -27,17 +26,17 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     /**
      * PreviewTemplateRepository constructor.
      * @param PreviewTemplateFactory $previewTemplateFactory
-     * @param Resource $resource
+     * @param PreviewTemplateResource $previewTemplateResource
      * @param CollectionFactory $collectionFactory
      */
     public function __construct
     (
         PreviewTemplateFactory $previewTemplateFactory,
-        Resource $resource,
+        PreviewTemplateResource $previewTemplateResource,
         CollectionFactory $collectionFactory
     ) {
         $this->modelFactory = $previewTemplateFactory;
-        $this->resource = $resource;
+        $this->previewTemplateResource = $previewTemplateResource;
         $this->collectionFactory = $collectionFactory;
     }
 
@@ -48,7 +47,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     public function getById(int $id)
     {
         $model = $this->modelFactory->create();
-        $this->resource->load($model, $id, PreviewTemplateInterface::ID);
+        $this->previewTemplateResource->load($model, $id, PreviewTemplateInterface::ID);
         return $model;
     }
 
@@ -59,7 +58,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     public function save(PreviewTemplateInterface $model)
     {
         try {
-            $this->resource->save($model);
+            $this->previewTemplateResource->save($model);
             return $model;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -67,14 +66,14 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     }
 
     /**
-     * @param PreviewTemplateInterfac $model
+     * @param PreviewTemplateInterface $model
      * @return bool|mixed
      * @throws \Exception
      */
     public function delete(PreviewTemplateInterface $model)
     {
         try {
-            $this->resource->delete($model);
+            $this->previewTemplateResource->delete($model);
             return true;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -85,7 +84,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
      * @inheritDoc
      * @return SearchResultInterface
      */
-    public function getList(SearchCriteriaInterface $searchCriteria)
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
     {
         $searchResult = $this->searchResultsFactory->create();
         $collection = $this->collectionFactory->create();

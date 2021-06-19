@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Overdose\PreviewEmail\Model;
-
 
 use Magento\Framework\Model\AbstractModel;
 use Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface;
