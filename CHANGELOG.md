@@ -1,20 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 2021-06-10
+## [1.1.0] - 19-06-2021
 ### Remove
-- remove Install, Upgrade script, replace by declarative schema, Patch/Data
-- remove empty spaces
-- remove imports, replace to full names
-- remove unused code
+- Remove Install, Upgrade script, replace by declarative schema, Patch/Data
+- Remove empty spaces
+- Remove imports, replace to full names
+- Remove unused code
 
 ### Fixed
-* edit doc blocks
-* change variables names
-* update readme file
+- Edit doc blocks
+- Change variables names
+- Update readme file
 
 ### Added
-* add proxies
-* add changelog file
-  
-#### All chnages was requested [#here](https://www.wrike.com/open.htm?id=701515767)
+- Add proxies
+- Add changelog file
+
