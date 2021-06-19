@@ -19,4 +19,4 @@ Select type of email to preview > view > select number ID(for Order/Invoice) or 
 ## Support
 Magento 2.0 | Magento 2.1 | Magento 2.2 | Magento 2.3 | Magento 2.4
 :---: | :---: | :---: | :---: | :---:
-x | x | x | x | ok
+? | 1.0.0 | 1.0.0 | ok | ok
