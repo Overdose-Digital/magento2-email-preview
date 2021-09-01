@@ -1,19 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\ResourceModel\Customer as Resource;
+use Magento\Customer\Model\Customer as DefaultCustomer;
 
+/**
+ * Class Customer
+ * @package Overdose\PreviewEmail\Model
+ */
 class Customer
 {
-    /**
-     * @var CustomerFactory
-     */
+    /** @var CustomerFactory */
     protected $customerFactory;
-    /**
-     * @var Resource
-     */
+
+    /** @var Resource */
     protected $resource;
 
     /**
@@ -31,18 +33,15 @@ class Customer
     }
 
     /**
-     * Get Customer Vars
      * @param $id
      * @return array
      */
-
-    public function getVars($id)
+    public function getVars($id): array
     {
+        /** @var DefaultCustomer $customer */
         $customer = $this->customerFactory->create();
         $this->resource->load($customer, $id);
-        $vars = [
-            'customer' => $customer,
-        ];
+        $vars = ['customer' => $customer];
         return $vars;
     }
 }

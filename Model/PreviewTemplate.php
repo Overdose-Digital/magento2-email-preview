@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
@@ -6,12 +6,16 @@ use Magento\Framework\Model\AbstractModel;
 use Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface;
 use Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate as Resource;
 
+/**
+ * Class PreviewTemplate
+ * @package Overdose\PreviewEmail\Model
+ */
 class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
 {
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getData(self::NAME);
     }
@@ -19,7 +23,7 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function setName(string $name)
+    public function setName(string $name): PreviewTemplateInterface
     {
         $this->setData(self::NAME, $name);
         return $this;
@@ -28,16 +32,16 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function setType(string $type)
+    public function setType(string $type): PreviewTemplateInterface
     {
-        $this->setType(self::TYPE, $type);
+        $this->setData(self::TYPE, $type);
         return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->getData(self::TYPE);
     }
@@ -45,7 +49,7 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function getFields()
+    public function getFields(): string
     {
         return $this->getData(self::FIELDS);
     }
@@ -53,7 +57,7 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function setFields(string $fields)
+    public function setFields(string $fields): PreviewTemplateInterface
     {
         $this->setData(self::FIELDS, $fields);
         return $this;
@@ -62,7 +66,7 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function setConfigPath(string $configPath)
+    public function setConfigPath(string $configPath): PreviewTemplateInterface
     {
         $this->setData(self::CONFIG_PATH, $configPath);
         return $this;
@@ -71,7 +75,7 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
     /**
      * @inheritDoc
      */
-    public function getConfigPath()
+    public function getConfigPath(): string
     {
         return $this->getData(self::CONFIG_PATH);
     }

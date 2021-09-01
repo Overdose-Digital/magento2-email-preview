@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 
@@ -11,29 +11,33 @@ use Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface as Repository;
 use Overdose\PreviewEmail\Model\Customer;
 use Overdose\PreviewEmail\Model\Order;
 
+/**
+ * Class TemplateEmail
+ * @package Overdose\PreviewEmail\Block\Adminhtml\View\Element
+ */
 class TemplateEmail extends Preview
 {
-    /**
-     * @var Repository
-     */
+    /** @var Repository */
     public $previewTemplateRepository;
-    /**
-     * @var Emulation
-     */
+
+    /** @var Emulation */
     private $emulation;
-    /**
-     * @var Order
-     */
+
+    /** @var Order */
     private $orderData;
 
+    /** @var Customer */
     private $customerData;
 
     /**
+     * TemplateEmail constructor.
      * @param Context $context
      * @param MaliciousCode $maliciousCode
      * @param TemplateFactory $emailFactory
-     * @param Emulation
-     * @param Repository
+     * @param Emulation $emulation
+     * @param Repository $repository
+     * @param Order $order
+     * @param Customer $customer
      * @param array $data
      */
     public function __construct(
@@ -41,7 +45,6 @@ class TemplateEmail extends Preview
         MaliciousCode $maliciousCode,
         TemplateFactory $emailFactory,
         Emulation $emulation,
-
         Repository $repository,
         Order $order,
         Customer $customer,
@@ -55,14 +58,12 @@ class TemplateEmail extends Preview
     }
 
     /**
-     * Prepare html output
-     * @return string
-     * @throws \Exception
+     * @inheritDoc
      */
     protected function _toHtml()
     {
         $request = $this->getRequest();
-        $previewTemplate = $this->previewTemplateRepository->getById($request->getParam('preview_template_id'));
+        $previewTemplate = $this->previewTemplateRepository->getById((int)$request->getParam('preview_template_id'));
         $id = $this->_scopeConfig->getValue($previewTemplate->getConfigPath());
 
         if (!empty($request->getParam('store_id')) && $request->getParam('store_id') != 'undefined') {
@@ -91,7 +92,6 @@ class TemplateEmail extends Preview
     }
 
     /**
-     * Load Template
      * @param $id
      * @return \Magento\Email\Model\Template
      */
@@ -103,7 +103,12 @@ class TemplateEmail extends Preview
         return $template;
     }
 
-    private function getTemplateData($fields, $requestId)
+    /**
+     * @param $fields
+     * @param $requestId
+     * @return array
+     */
+    private function getTemplateData($fields, $requestId): array
     {
         $typeData = explode(',', $fields);
         foreach ($typeData as $value) {

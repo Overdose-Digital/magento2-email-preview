@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Setup\Patch\Data;
 
@@ -7,6 +7,10 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Overdose\PreviewEmail\Model\PreviewTemplateFactory;
 use Overdose\PreviewEmail\Model\PreviewTemplateRepository;
 
+/**
+ * Class UpdateData
+ * @package Overdose\PreviewEmail\Setup\Patch\Data
+ */
 class UpdateData implements DataPatchInterface
 {
     public $data = [

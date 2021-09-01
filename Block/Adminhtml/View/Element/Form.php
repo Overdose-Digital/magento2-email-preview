@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 
@@ -11,38 +10,34 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
+use Magento\Store\Api\Data\StoreInterface;
 
+/**
+ * Class Form
+ * @package Overdose\PreviewEmail\Block\Adminhtml\View\Element
+ */
 class Form extends Template
 {
-    /**
-     * @var Collection
-     */
+    /** @var Collection */
     public $orderCollection;
-    /**
-     * @var StoreRepository
-     */
 
+    /** @var \Magento\Customer\Model\ResourceModel\Customer\Collection */
     public $customers;
-    /**
-     * @var StoreRepository
-     */
+
+    /** @var StoreRepository */
     public $storeRepository;
-    /**
-     * @var FormKey
-     */
-    /**
-     * @var FormKey
-     */
+
+    /** @var FormKey */
     protected $formKey;
 
     /**
      * Form constructor.
      * @param Context $context
-     * @param array $data
      * @param CollectionFactory $collectionFactory
      * @param FormKey $formKey
      * @param StoreRepository $storeRepository
      * @param CustomerCollection $customerFactory
+     * @param array $data
      */
     public function __construct
     (
@@ -66,28 +61,28 @@ class Form extends Template
     }
 
     /**
-     * Get Order Ids
      * @return array
      */
-    public function getOrderIds()
+    public function getOrderIds(): array
     {
         $orders = [];
+        /** @var Order $order */
         foreach ($this->orderCollection as $order) {
-            /** @var Order $order */
             $orders[] = $order->getIncrementId();
         }
-
         return $orders;
     }
 
     /**
-     * Return Stores Name and Id
      * @return array
      */
-    public function getStores()
+    public function getStores(): array
     {
+        /** @var StoreInterface[] $storesList */
         $storesList = $this->storeRepository->getList();
         $stores = [];
+
+        /** @var StoreInterface $store */
         foreach ($storesList as $store) {
             $stores[$store->getId()] = $store->getName();
         }
@@ -95,12 +90,12 @@ class Form extends Template
     }
 
     /**
-     * Get Customer Full Name
      * @return array
      */
-    public function getCustomersFullName()
+    public function getCustomersFullName(): array
     {
         $customersFullName = [];
+
         foreach ($this->customers->getData() as $customer) {
             $firstName = $customer['firstname'];
             $lastName = $customer['lastname'];

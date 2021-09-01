@@ -1,23 +1,22 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\ResponseInterface;
-use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
+/**
+ * Class View
+ * @package Overdose\PreviewEmail\Controller\Adminhtml\Index
+ */
 class View extends Action
 {
-    /**
-     * @var bool|PageFactory
-     */
-    protected $resultPageFactory = false;
+    /** @var PageFactory */
+    protected $resultPageFactory;
 
     /**
+     * View constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */
@@ -26,16 +25,14 @@ class View extends Action
         PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-
         parent::__construct($context);
     }
 
     /**
-     * @return ResponseInterface|ResultInterface|Page
+     * @inheritDoc
      */
     public function execute()
     {
-        return $resultPage = $this->resultPageFactory->create();
-
+        return $this->resultPageFactory->create();
     }
 }

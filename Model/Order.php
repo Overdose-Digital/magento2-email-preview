@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
@@ -7,49 +6,48 @@ use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\OrderRepository;
+use Magento\Sales\Model\Order as MagentoOrder;
 
+/**
+ * Class Order
+ * @package Overdose\PreviewEmail\Model
+ */
 class Order
 {
-    /**
-     * @var Renderer
-     */
+    /** @var Renderer */
     protected $_render;
-    /**
-     * @var OrderRepository
-     */
+
+    /** @var OrderRepository */
     private $orderRepository;
-    /**
-     * @var PaymentHelper
-     */
+
+    /** @var PaymentHelper */
     private $paymentData;
-    /**
-     * @var Invoice
-     */
-    private $invoice;
 
     /**
      * Order constructor.
      * @param Renderer $renderer
+     * @param OrderRepository $orderRepository
+     * @param PaymentHelper $paymentHelper
      */
     public function __construct
     (
         Renderer $renderer,
         OrderRepository $orderRepository,
-        PaymentHelper $paymentHelper,
-        Invoice $invoice
-    ) {
+        PaymentHelper $paymentHelper
+    )
+    {
         $this->_render = $renderer;
         $this->orderRepository = $orderRepository;
         $this->paymentData = $paymentHelper;
-        $this->invoice = $invoice;
     }
 
     /**
-     * Get Order Vars
      * @param $id
      * @return array
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getVars($id)
+    public function getVars($id): array
     {
         $order = $this->orderRepository->get($id);
         $invoices = $order->getInvoiceCollection();
@@ -60,6 +58,8 @@ class Order
             'payment_html' => $this->getPaymentHtml($order),
             'order' => $order,
         ];
+
+        /** @var Invoice $invoice */
         foreach ($invoices->getItems() as $invoice) {
             $vars['invoice'] = $invoice;
         }
@@ -67,7 +67,7 @@ class Order
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param MagentoOrder $order
      * @return string|null
      */
     protected function getFormattedBillingAddress($order)
@@ -76,7 +76,7 @@ class Order
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param MagentoOrder $order
      * @return string|null
      */
     protected function getFormattedShippingAddress($order)
@@ -85,10 +85,11 @@ class Order
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param MagentoOrder $order
      * @return string
+     * @throws \Exception
      */
-    protected function getPaymentHtml($order)
+    protected function getPaymentHtml($order): string
     {
         return $this->paymentData->getInfoBlockHtml(
             $order->getPayment(),
