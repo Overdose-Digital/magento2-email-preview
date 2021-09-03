@@ -2,21 +2,18 @@
 
 namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 
-use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollection;
 use Magento\Framework\Data\Form\FormKey;
-use Magento\Sales\Model\Order;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
-use Magento\Store\Api\Data\StoreInterface;
 
 /**
  * Class Form
  * @package Overdose\PreviewEmail\Block\Adminhtml\View\Element
  */
-class Form extends Template
+class Form extends \Magento\Backend\Block\Template
 {
     /** @var Collection */
     public $orderCollection;
@@ -39,8 +36,7 @@ class Form extends Template
      * @param CustomerCollection $customerFactory
      * @param array $data
      */
-    public function __construct
-    (
+    public function __construct (
         Context $context,
         CollectionFactory $collectionFactory,
         FormKey $formKey,
@@ -66,7 +62,7 @@ class Form extends Template
     public function getOrderIds(): array
     {
         $orders = [];
-        /** @var Order $order */
+        /** @var \Magento\Sales\Model\Order $order */
         foreach ($this->orderCollection as $order) {
             $orders[] = $order->getIncrementId();
         }
@@ -78,11 +74,11 @@ class Form extends Template
      */
     public function getStores(): array
     {
-        /** @var StoreInterface[] $storesList */
+        /** @var \Magento\Store\Api\Data\StoreInterface[] $storesList */
         $storesList = $this->storeRepository->getList();
         $stores = [];
 
-        /** @var StoreInterface $store */
+        /** @var \Magento\Store\Api\Data\StoreInterface $store */
         foreach ($storesList as $store) {
             $stores[$store->getId()] = $store->getName();
         }
@@ -95,7 +91,6 @@ class Form extends Template
     public function getCustomersFullName(): array
     {
         $customersFullName = [];
-
         foreach ($this->customers->getData() as $customer) {
             $firstName = $customer['firstname'];
             $lastName = $customer['lastname'];

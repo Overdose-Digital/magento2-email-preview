@@ -4,7 +4,6 @@ namespace Overdose\PreviewEmail\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface;
-use Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate as Resource;
 
 /**
  * Class PreviewTemplate
@@ -82,6 +81,6 @@ class PreviewTemplate extends AbstractModel implements PreviewTemplateInterface
 
     protected function _construct()
     {
-        $this->_init(Resource::class);
+        $this->_init(\Overdose\PreviewEmail\Model\ResourceModel\PreviewTemplate::class);
     }
 }

@@ -17,7 +17,7 @@ class PreviewTemplate extends AbstractDb
      * @param Context $context
      * @param null $connectionName
      */
-    public function __construct(
+    public function __construct (
         Context $context,
         $connectionName = null
     ) {

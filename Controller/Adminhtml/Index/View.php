@@ -20,7 +20,7 @@ class View extends Action
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(
+    public function __construct (
         Context $context,
         PageFactory $resultPageFactory
     ) {

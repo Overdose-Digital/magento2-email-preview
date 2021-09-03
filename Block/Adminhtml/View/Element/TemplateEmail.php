@@ -40,7 +40,7 @@ class TemplateEmail extends Preview
      * @param Customer $customer
      * @param array $data
      */
-    public function __construct(
+    public function __construct (
         Context $context,
         MaliciousCode $maliciousCode,
         TemplateFactory $emailFactory,

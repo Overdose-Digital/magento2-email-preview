@@ -17,3 +17,7 @@ All notable changes to this project will be documented in this file.
 - Add proxies
 - Add changelog file
 
+## [1.1.1] - 03-09-2021
+### Added
+- Search Result Interface added for getList method
+- Code refactoring doc blocks added for the entire module. 

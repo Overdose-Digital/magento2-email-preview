@@ -26,7 +26,7 @@ class View extends Column
      * @param array $components
      * @param array $data
      */
-    public function __construct(
+    public function __construct (
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
         UrlInterface $urlBuilder,

@@ -4,7 +4,6 @@ namespace Overdose\PreviewEmail\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
@@ -21,7 +20,7 @@ class Preview extends Action
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(
+    public function __construct (
         Context $context,
         PageFactory $resultPageFactory
     ) {
@@ -34,7 +33,7 @@ class Preview extends Action
      */
     public function execute()
     {
-        /** @var Page $resultPage */
+        /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend((__('Preview')));
         return $resultPage;

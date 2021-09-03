@@ -6,7 +6,6 @@ use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\OrderRepository;
-use Magento\Sales\Model\Order as MagentoOrder;
 
 /**
  * Class Order
@@ -29,13 +28,11 @@ class Order
      * @param OrderRepository $orderRepository
      * @param PaymentHelper $paymentHelper
      */
-    public function __construct
-    (
+    public function __construct (
         Renderer $renderer,
         OrderRepository $orderRepository,
         PaymentHelper $paymentHelper
-    )
-    {
+    ) {
         $this->_render = $renderer;
         $this->orderRepository = $orderRepository;
         $this->paymentData = $paymentHelper;
@@ -67,7 +64,7 @@ class Order
     }
 
     /**
-     * @param MagentoOrder $order
+     * @param \Magento\Sales\Model\Order $order
      * @return string|null
      */
     protected function getFormattedBillingAddress($order)
@@ -76,7 +73,7 @@ class Order
     }
 
     /**
-     * @param MagentoOrder $order
+     * @param \Magento\Sales\Model\Order $order
      * @return string|null
      */
     protected function getFormattedShippingAddress($order)
@@ -85,7 +82,7 @@ class Order
     }
 
     /**
-     * @param MagentoOrder $order
+     * @param \Magento\Sales\Model\Order $order
      * @return string
      * @throws \Exception
      */

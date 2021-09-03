@@ -2,8 +2,6 @@
 
 namespace Overdose\PreviewEmail\Model;
 
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Overdose\PreviewEmail\Api\Data\PreviewTemplateInterface;
@@ -42,8 +40,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
      * @param CollectionFactory $collectionFactory
      * @param PreviewTemplateSearchResultInterfaceFactory $searchResultsFactory
      */
-    public function __construct
-    (
+    public function __construct (
         PreviewTemplateFactory $previewTemplateFactory,
         PreviewTemplateResource $previewTemplateResource,
         CollectionFactory $collectionFactory,
@@ -69,7 +66,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
     /**
      * @param PreviewTemplateInterface $model
      * @return PreviewTemplateInterface
-     * @throws CouldNotSaveException
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
     public function save(PreviewTemplateInterface $model): PreviewTemplateInterface
     {
@@ -77,14 +74,14 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
             $this->previewTemplateResource->save($model);
             return $model;
         } catch (\Exception $e) {
-            throw new CouldNotSaveException(__($e->getMessage()));
+            throw new \Magento\Framework\Exception\CouldNotSaveException(__($e->getMessage()));
         }
     }
 
     /**
      * @param PreviewTemplateInterface $model
      * @return mixed
-     * @throws NoSuchEntityException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function delete(PreviewTemplateInterface $model)
     {
@@ -92,7 +89,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
             $this->previewTemplateResource->delete($model);
             return true;
         } catch (\Exception $e) {
-            throw new NoSuchEntityException(__($e->getMessage()));
+            throw new \Magento\Framework\Exception\NoSuchEntityException(__($e->getMessage()));
         }
     }
 
@@ -100,7 +97,7 @@ class PreviewTemplateRepository implements PreviewTemplateRepositoryInterface
      * @param SearchCriteriaInterface $searchCriteria
      * @return mixed
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
+    public function getList(SearchCriteriaInterface $searchCriteria)
     {
         $collection = $this->collectionFactory->create();
         $this->addFiltersToCollection($searchCriteria, $collection);
