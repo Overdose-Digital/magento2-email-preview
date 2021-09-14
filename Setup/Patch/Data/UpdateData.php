@@ -31,6 +31,12 @@ class UpdateData implements DataPatchInterface
             'fields' => 'customer',
             'name' => 'Default Welcome Email',
             'config_path' => 'customer/create_account/email_template'
+        ],
+        [
+            'type' => 'shipment',
+            'fields' => 'order',
+            'name' => 'Shipment Email Template',
+            'config_path' => \Magento\Sales\Model\Order\Email\Container\ShipmentIdentity::XML_PATH_EMAIL_TEMPLATE
         ]
     ];
 

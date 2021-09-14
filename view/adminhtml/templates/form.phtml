@@ -4,7 +4,7 @@
 
 <div class="button-column">
     <form class="form_template admin__fieldset form-inline" action="<?= $block->escapeHtmlAttr($this->getUrl('preview_email/index/preview')) ?>" method="GET" id="form_template">
-        <?php if ($block->getOptionType() === 'order' || $block->getOptionType() === 'invoice'): ?>
+        <?php if ($block->getOptionType() === 'order' || $block->getOptionType() === 'invoice' || $block->getOptionType() === 'shipment'): ?>
             <p class="select_name"><?= $block->escapeHtml(__('Order ID')) ?></p>
             <select name="order_id" class="order_id admin__control-select">
                 <option disabled selected><?= $block->escapeHtml(__('Select Order ID')) ?></option>
