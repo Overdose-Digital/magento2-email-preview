@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 15-09-2021
+### Fixed
+- Fixed Order Confirmation Email Template Issues of incomplete information
+
+### Added
+- Add proxy class for CreditMemo Model class
+- Add changelog file
+- Add email template preview for shipment emails
+- Add email template preview for credit memo emails
 
 ## [1.1.1] - 03-09-2021
 ### Changed
