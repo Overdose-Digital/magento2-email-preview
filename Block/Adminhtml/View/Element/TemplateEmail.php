@@ -10,6 +10,7 @@ use Magento\Store\Model\App\Emulation;
 use Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface as Repository;
 use Overdose\PreviewEmail\Model\Customer;
 use Overdose\PreviewEmail\Model\Order;
+use Overdose\PreviewEmail\Model\CreditMemo;
 
 /**
  * Class TemplateEmail
@@ -29,6 +30,9 @@ class TemplateEmail extends Preview
     /** @var Customer */
     private $customerData;
 
+    /** @var CreditMemo */
+    private $creditMemo;
+
     /**
      * TemplateEmail constructor.
      * @param Context $context
@@ -38,6 +42,7 @@ class TemplateEmail extends Preview
      * @param Repository $repository
      * @param Order $order
      * @param Customer $customer
+     * @param CreditMemo $creditMemo
      * @param array $data
      */
     public function __construct (
@@ -48,6 +53,7 @@ class TemplateEmail extends Preview
         Repository $repository,
         Order $order,
         Customer $customer,
+        CreditMemo $creditMemo,
         array $data = []
     ) {
         parent::__construct($context, $maliciousCode, $emailFactory, $data);
@@ -55,6 +61,7 @@ class TemplateEmail extends Preview
         $this->previewTemplateRepository = $repository;
         $this->orderData = $order;
         $this->customerData = $customer;
+        $this->creditMemo = $creditMemo;
     }
 
     /**
@@ -121,6 +128,11 @@ class TemplateEmail extends Preview
                 case 'customer':
                     if (!empty($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
                         $templateData = $this->customerData->getVars($requestId['customer_id']);
+                    }
+                    break;
+                case 'creditmemo':
+                    if (!empty($requestId['creditmemo_id']) && $requestId['creditmemo_id'] != 'undefined') {
+                        $templateData = $this->creditMemo->getVars($requestId['creditmemo_id']);
                     }
                     break;
                 default:

@@ -37,6 +37,12 @@ class UpdateData implements DataPatchInterface
             'fields' => 'order',
             'name' => 'Shipment Email Template',
             'config_path' => \Magento\Sales\Model\Order\Email\Container\ShipmentIdentity::XML_PATH_EMAIL_TEMPLATE
+        ],
+        [
+            'type' => 'creditmemo',
+            'fields' => 'creditmemo',
+            'name' => 'CreditMemo Email Template',
+            'config_path' => \Magento\Sales\Model\Order\Email\Container\CreditmemoIdentity::XML_PATH_EMAIL_TEMPLATE
         ]
     ];
 

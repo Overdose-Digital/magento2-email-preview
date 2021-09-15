@@ -70,6 +70,14 @@ class Form extends \Magento\Backend\Block\Template
     }
 
     /**
+     * @return Collection
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orderCollection;
+    }
+
+    /**
      * @return array
      */
     public function getStores(): array
@@ -99,7 +107,10 @@ class Form extends \Magento\Backend\Block\Template
         return $customersFullName;
     }
 
-    public function getOptionType()
+    /**
+     * @return string
+     */
+    public function getOptionType(): string
     {
         return $this->getRequest()->getParam('type');
     }

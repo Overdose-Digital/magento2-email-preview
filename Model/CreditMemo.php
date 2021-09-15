@@ -4,14 +4,13 @@ namespace Overdose\PreviewEmail\Model;
 
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order\Address\Renderer;
-use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\OrderRepository;
 
 /**
- * Class Order
+ * Class CreditMemo
  * @package Overdose\PreviewEmail\Model
  */
-class Order
+class CreditMemo
 {
     /** @var Renderer */
     protected $_render;
@@ -47,16 +46,30 @@ class Order
     public function getVars($id): array
     {
         $order = $this->orderRepository->get($id);
-        $invoices = $order->getInvoiceCollection();
 
-        $vars = [
+        /** @var \Magento\Sales\Model\Order\Creditmemo $creditMemo */
+        $creditMemo = $order->getCreditmemosCollection()->getFirstItem();
+
+        /** @var \Magento\Sales\Api\Data\CreditmemoCommentInterface[] $comments */
+        $comments = $creditMemo->getComments();
+        $comment = '';
+        if (count($comments)) {
+            /** @var \Magento\Sales\Model\Order\Creditmemo\Comment $comment */
+            foreach ($comments as $comment) {
+                $comment = $comment->getComment();
+                break;
+            }
+        }
+
+        return [
             'order' => $order,
+            'creditmemo' => $creditMemo,
+            'comment' => $comment,
             'billing' => $order->getBillingAddress(),
             'payment_html' => $this->getPaymentHtml($order),
             'store' => $order->getStore(),
             'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
             'formattedBillingAddress' => $this->getFormattedBillingAddress($order),
-            'created_at_formatted' => $order->getCreatedAtFormatted(2),
             'order_data' => [
                 'customer_name' => $order->getCustomerName(),
                 'is_not_virtual' => $order->getIsNotVirtual(),
@@ -64,20 +77,6 @@ class Order
                 'frontend_status_label' => $order->getFrontendStatusLabel()
             ]
         ];
-
-        /**
-         * Since we are using same class for order confirmation and order shipment email template previews
-         * so check if order has shipment available then pass the shipment variable as well.
-         */
-        if ($order->hasShipments()) {
-            $vars['shipment'] = $order->getShipmentsCollection()->getFirstItem();
-        }
-
-        /** @var Invoice $invoice */
-        foreach ($invoices->getItems() as $invoice) {
-            $vars['invoice'] = $invoice;
-        }
-        return $vars;
     }
 
     /**
