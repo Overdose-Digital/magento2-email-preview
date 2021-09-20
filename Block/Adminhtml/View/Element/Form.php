@@ -36,7 +36,7 @@ class Form extends \Magento\Backend\Block\Template
      * @param CustomerCollection $customerFactory
      * @param array $data
      */
-    public function __construct (
+    public function __construct(
         Context $context,
         CollectionFactory $collectionFactory,
         FormKey $formKey,

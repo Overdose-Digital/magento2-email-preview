@@ -13,9 +13,7 @@ interface PreviewTemplateInterface
     /** Table Fields */
     const ID = 'id';
     const TYPE = 'type';
-    const FIELDS = 'fields';
     const NAME = 'name';
-    const CONFIG_PATH = 'config_path';
 
     /**
      * @return string
@@ -38,26 +36,4 @@ interface PreviewTemplateInterface
      * @return string
      */
     public function getType(): string;
-
-    /**
-     * @return string
-     */
-    public function getFields(): string;
-
-    /**
-     * @param string $fields
-     * @return PreviewTemplateInterface
-     */
-    public function setFields(string $fields): PreviewTemplateInterface;
-
-    /**
-     * @param string $configPath
-     * @return PreviewTemplateInterface
-     */
-    public function setConfigPath(string $configPath): PreviewTemplateInterface;
-
-    /**
-     * @return string
-     */
-    public function getConfigPath(): string;
 }

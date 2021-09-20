@@ -4,7 +4,6 @@ namespace Overdose\PreviewEmail\Model;
 
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order\Address\Renderer;
-use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\OrderRepository;
 
 /**
@@ -73,10 +72,10 @@ class Order
             $vars['shipment'] = $order->getShipmentsCollection()->getFirstItem();
         }
 
-        /** @var Invoice $invoice */
-        foreach ($invoices->getItems() as $invoice) {
-            $vars['invoice'] = $invoice;
-        }
+        /**
+         * Assuming there is only one invoice
+         */
+        $vars['invoice'] = $invoices->getFirstItem();
         return $vars;
     }
 
@@ -109,5 +108,16 @@ class Order
             $order->getPayment(),
             $order->getStoreId()
         );
+    }
+
+    /**
+     * @param int $entityId
+     * @return \Magento\Sales\Api\Data\OrderInterface
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getOrderById(int $entityId): \Magento\Sales\Api\Data\OrderInterface
+    {
+        return $this->orderRepository->get($entityId);
     }
 }

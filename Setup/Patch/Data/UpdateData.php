@@ -16,33 +16,27 @@ class UpdateData implements DataPatchInterface
     public $data = [
         [
             'type' => 'order',
-            'fields' => 'order',
-            'name' => 'New Order Confirmation Template',
-            'config_path' => 'sales_email/order/template'
+            'name' => 'New Order Confirmation Template'
         ],
         [
             'type' => 'invoice',
-            'fields' => 'order',
-            'name' => 'Invoice Email Template',
-            'config_path' => 'sales_email/invoice/template'
+            'name' => 'Invoice Email Template'
         ],
         [
             'type' => 'customer',
-            'fields' => 'customer',
-            'name' => 'Default Welcome Email',
-            'config_path' => 'customer/create_account/email_template'
+            'name' => 'Default Welcome Email'
         ],
         [
             'type' => 'shipment',
-            'fields' => 'order',
-            'name' => 'Shipment Email Template',
-            'config_path' => \Magento\Sales\Model\Order\Email\Container\ShipmentIdentity::XML_PATH_EMAIL_TEMPLATE
+            'name' => 'Shipment Email Template'
         ],
         [
             'type' => 'creditmemo',
-            'fields' => 'creditmemo',
-            'name' => 'CreditMemo Email Template',
-            'config_path' => \Magento\Sales\Model\Order\Email\Container\CreditmemoIdentity::XML_PATH_EMAIL_TEMPLATE
+            'name' => 'CreditMemo Email Template'
+        ],
+        [
+            'type' => 'password_reset',
+            'name' => 'Reset Customer Password'
         ]
     ];
 
