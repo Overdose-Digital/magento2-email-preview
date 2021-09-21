@@ -13,6 +13,9 @@ M2 extension provides opportunity to view emails from BO.
 - preview customer emails
 - preview shipment emails
 - preview creditmemo emails
+- preview contact us form emails
+- preview reset password emails
+- preview subscription subscription success emails
 
 #### Usage
 Move to Admin Menu->Marketing->Communications->Preview Email

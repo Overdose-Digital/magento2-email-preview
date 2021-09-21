@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] 21-09-2021
+### Added
+- Added email template preview for contact us, reset password and subscription success
+
+### Changed
+- Interface added for getVars method of Model classes of all email templates
+
 ## [1.1.2] - 15-09-2021
 ### Fixed
 - Fixed Order Confirmation Email Template Issues of incomplete information

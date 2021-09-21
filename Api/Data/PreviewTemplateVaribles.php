@@ -1,7 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Api\Data;
 
+/**
+ * Interface PreviewTemplateVaribles
+ * @package Overdose\PreviewEmail\Api\Data
+ */
 interface PreviewTemplateVaribles
 {
     /**
