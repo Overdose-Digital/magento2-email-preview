@@ -9,7 +9,7 @@ use Magento\Customer\Model\ResourceModel\Customer as Resource;
  * Class Customer
  * @package Overdose\PreviewEmail\Model
  */
-class Customer
+class Customer implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     /** @var CustomerFactory */
     protected $customerFactory;

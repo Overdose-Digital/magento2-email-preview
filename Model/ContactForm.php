@@ -6,7 +6,7 @@ namespace Overdose\PreviewEmail\Model;
  * Class ContactForm
  * @package Overdose\PreviewEmail\Model
  */
-class ContactForm
+class ContactForm implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     public function __construct()
     {
@@ -19,7 +19,6 @@ class ContactForm
     public function getVars(int $id): array
     {
         return [
-
         ];
     }
 }

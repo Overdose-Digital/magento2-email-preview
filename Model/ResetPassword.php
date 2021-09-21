@@ -12,7 +12,7 @@ use Magento\Customer\Helper\View as CustomerViewHelper;
  * Class CreditMemo
  * @package Overdose\PreviewEmail\Model
  */
-class ResetPassword
+class ResetPassword implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     /** @var CustomerRepositoryInterface */
     private $customerRepository;

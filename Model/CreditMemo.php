@@ -10,7 +10,7 @@ use Magento\Sales\Model\OrderRepository;
  * Class CreditMemo
  * @package Overdose\PreviewEmail\Model
  */
-class CreditMemo
+class CreditMemo implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     /** @var Renderer */
     protected $_render;

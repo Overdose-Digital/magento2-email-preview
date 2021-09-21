@@ -10,7 +10,7 @@ use Magento\Sales\Model\OrderRepository;
  * Class Order
  * @package Overdose\PreviewEmail\Model
  */
-class Order
+class Order implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     /** @var Renderer */
     protected $_render;

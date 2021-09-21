@@ -8,7 +8,7 @@ use Magento\Newsletter\Model\SubscriberFactory;
  * Class SubscriptionSuccess
  * @package Overdose\PreviewEmail\Model
  */
-class SubscriptionSuccess
+class SubscriptionSuccess implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
     /** @var SubscriberFactory */
     private $subscriber;
