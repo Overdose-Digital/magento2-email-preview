@@ -5,9 +5,9 @@ namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 use Magento\Backend\Block\Template\Context;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollection;
 use Magento\Framework\Data\Form\FormKey;
-use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
+use Magento\Newsletter\Model\SubscriberFactory;
 
 /**
  * Class Form
@@ -15,7 +15,7 @@ use Magento\Store\Model\StoreRepository;
  */
 class Form extends \Magento\Backend\Block\Template
 {
-    /** @var Collection */
+    /** @var \Magento\Sales\Model\ResourceModel\Order\Collection */
     public $orderCollection;
 
     /** @var \Magento\Customer\Model\ResourceModel\Customer\Collection */
@@ -26,6 +26,9 @@ class Form extends \Magento\Backend\Block\Template
 
     /** @var FormKey */
     protected $formKey;
+
+    /** @var SubscriberFactory */
+    private $subscriptionFactory;
 
     /**
      * Form constructor.
@@ -42,13 +45,15 @@ class Form extends \Magento\Backend\Block\Template
         FormKey $formKey,
         StoreRepository $storeRepository,
         CustomerCollection $customerFactory,
+        SubscriberFactory $subscriberFactory,
         array $data = []
     ) {
+        parent::__construct($context, $data);
         $this->formKey = $formKey;
         $this->customers = $customerFactory->create();
         $this->storeRepository = $storeRepository;
         $this->orderCollection = $collectionFactory->create();
-        parent::__construct($context, $data);
+        $this->subscriptionFactory = $subscriberFactory;
     }
 
     public function getPreviewTemplateId()
@@ -70,9 +75,9 @@ class Form extends \Magento\Backend\Block\Template
     }
 
     /**
-     * @return Collection
+     * @return \Magento\Sales\Model\ResourceModel\Order\Collection
      */
-    public function getOrders(): Collection
+    public function getOrders(): \Magento\Sales\Model\ResourceModel\Order\Collection
     {
         return $this->orderCollection;
     }
@@ -113,5 +118,26 @@ class Form extends \Magento\Backend\Block\Template
     public function getOptionType(): string
     {
         return $this->getRequest()->getParam('type');
+    }
+
+    /**
+     * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getSubscribedCustomers(): array
+    {
+        $subscribedCustomers = [];
+
+        /** @var \Magento\Customer\Model\Customer $customer */
+        foreach ($this->customers->getItems() as $customer)
+        {
+            /** @var \Magento\Newsletter\Model\Subscriber $subscriber */
+            $subscriber = $this->subscriptionFactory->create();
+            $checkSubscriber = $subscriber->loadByEmail($customer->getEmail());
+            if ($checkSubscriber->isSubscribed()) {
+                $subscribedCustomers[$customer->getEntityId()] = $customer->getName();
+            }
+        }
+        return $subscribedCustomers;
     }
 }

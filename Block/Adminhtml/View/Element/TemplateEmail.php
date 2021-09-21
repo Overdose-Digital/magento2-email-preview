@@ -13,6 +13,8 @@ use Overdose\PreviewEmail\Api\PreviewTemplateRepositoryInterface as Repository;
 use Overdose\PreviewEmail\Model\Customer;
 use Overdose\PreviewEmail\Model\Order;
 use Overdose\PreviewEmail\Model\CreditMemo;
+use Overdose\PreviewEmail\Model\ContactForm;
+use Overdose\PreviewEmail\Model\SubscriptionSuccess;
 
 /**
  * Class TemplateEmail
@@ -38,6 +40,12 @@ class TemplateEmail extends Preview
     /** @var ResetPassword */
     private $resetPassword;
 
+    /** @var ContactForm */
+    private $contactForm;
+
+    /** @var SubscriptionSuccess */
+    private $subscriptionSuccess;
+
     /**
      * TemplateEmail constructor.
      * @param Context $context
@@ -49,6 +57,8 @@ class TemplateEmail extends Preview
      * @param Customer $customer
      * @param CreditMemo $creditMemo
      * @param ResetPassword $resetPassword
+     * @param ContactForm $contactForm
+     * @param SubscriptionSuccess $subscriptionSuccess
      * @param array $data
      */
     public function __construct(
@@ -61,6 +71,8 @@ class TemplateEmail extends Preview
         Customer $customer,
         CreditMemo $creditMemo,
         ResetPassword $resetPassword,
+        ContactForm $contactForm,
+        SubscriptionSuccess $subscriptionSuccess,
         array $data = []
     ) {
         parent::__construct($context, $maliciousCode, $emailFactory, $data);
@@ -70,6 +82,8 @@ class TemplateEmail extends Preview
         $this->customerData = $customer;
         $this->creditMemo = $creditMemo;
         $this->resetPassword = $resetPassword;
+        $this->contactForm = $contactForm;
+        $this->subscriptionSuccess = $subscriptionSuccess;
     }
 
     /**
@@ -86,7 +100,8 @@ class TemplateEmail extends Preview
         $templatePathInConfig = $this->fetchTemplateIdentifierUsingField($type, $entityId);
         $id = $this->_scopeConfig->getValue($templatePathInConfig);
 
-        if (!empty($request->getParam('store_id')) && $request->getParam('store_id') != 'undefined') {
+        $storeParam = $request->getParam('store_id');
+        if (isset($storeParam) && $request->getParam('store_id') != 'undefined') {
             $storeId = $this->getRequest()->getParam('store_id');
         } else {
             $storeId = $this->getAnyStoreView()->getId();
@@ -134,23 +149,33 @@ class TemplateEmail extends Preview
             case 'order':
             case 'shipment':
             case 'invoice':
-                if (!empty($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
+                if (isset($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
                     $templateData = $this->orderData->getVars($requestId['order_id']);
                 }
                 break;
             case 'customer':
-                if (!empty($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
+                if (isset($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
                     $templateData = $this->customerData->getVars($requestId['customer_id']);
                 }
                 break;
             case 'creditmemo':
-                if (!empty($requestId['creditmemo_id']) && $requestId['creditmemo_id'] != 'undefined') {
+                if (isset($requestId['creditmemo_id']) && $requestId['creditmemo_id'] != 'undefined') {
                     $templateData = $this->creditMemo->getVars($requestId['creditmemo_id']);
                 }
                 break;
             case 'password_reset':
-                if (!empty($requestId['password_reset']) && $requestId['password_reset'] != 'undefined') {
+                if (isset($requestId['password_reset']) && $requestId['password_reset'] != 'undefined') {
                     $templateData = $this->resetPassword->getVars((int)$requestId['password_reset']);
+                }
+                break;
+            case 'contact_form':
+                if (isset($requestId['contact_form']) && $requestId['contact_form'] != 'undefined') {
+                    $templateData = $this->contactForm->getVars((int)$requestId['contact_form']);
+                }
+                break;
+            case 'subscription_success':
+                if (isset($requestId['subscription_success']) && $requestId['subscription_success'] != 'undefined') {
+                    $templateData = $this->subscriptionSuccess->getVars((int)$requestId['subscription_success']);
                 }
                 break;
             default:
@@ -167,18 +192,24 @@ class TemplateEmail extends Preview
     {
         $entityId = null;
         $type = null;
-        if (!empty($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
+        if (isset($requestId['order_id']) && $requestId['order_id'] != 'undefined') {
             $entityId = $requestId['order_id'];
             $type = 'order';
-        } else if (!empty($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
+        } else if (isset($requestId['customer_id']) && $requestId['customer_id'] != 'undefined') {
             $entityId = $requestId['customer_id'];
             $type = 'customer';
-        } else if (!empty($requestId['creditmemo_id']) && $requestId['creditmemo_id'] != 'undefined') {
+        } else if (isset($requestId['creditmemo_id']) && $requestId['creditmemo_id'] != 'undefined') {
             $entityId = $requestId['creditmemo_id'];
             $type = 'creditmemo';
-        } else if (!empty($requestId['password_reset']) && $requestId['password_reset'] != 'undefined') {
+        } else if (isset($requestId['password_reset']) && $requestId['password_reset'] != 'undefined') {
             $entityId = $requestId['password_reset'];
             $type = 'password_reset';
+        } else if (isset($requestId['contact_form']) && $requestId['contact_form'] != 'undefined') {
+            $entityId = $requestId['contact_form'];
+            $type = 'contact_form';
+        } else if (isset($requestId['subscription_success']) && $requestId['subscription_success'] != 'undefined') {
+            $entityId = $requestId['subscription_success'];
+            $type = 'subscription_success';
         }
         return ['entityId' => $entityId, 'type' => $type];
     }
@@ -215,6 +246,10 @@ class TemplateEmail extends Preview
                 return ConfigPaths::registerEmailTemplate();
             case 'password_reset':
                 return ConfigPaths::resetPasswordEmailTemplate();
+            case 'contact_form':
+                return ConfigPaths::contactFormEmailTemplate();
+            case 'subscription_success':
+                return ConfigPaths::subscriptionSuccessEmailTemplate();
             default:
                 return '';
         }

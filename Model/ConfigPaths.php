@@ -87,4 +87,20 @@ class ConfigPaths
     {
         return \Magento\Customer\Model\EmailNotification::XML_PATH_RESET_PASSWORD_TEMPLATE;
     }
+
+    /**
+     * @return string
+     */
+    public static function contactFormEmailTemplate(): string
+    {
+        return \Magento\Contact\Model\ConfigInterface::XML_PATH_EMAIL_TEMPLATE;
+    }
+
+    /**
+     * @return string
+     */
+    public static function subscriptionSuccessEmailTemplate(): string
+    {
+        return \Magento\Newsletter\Model\Subscriber::XML_PATH_SUCCESS_EMAIL_TEMPLATE;
+    }
 }

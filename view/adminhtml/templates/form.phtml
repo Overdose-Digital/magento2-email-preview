@@ -62,6 +62,22 @@
                     <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
                 <?php endforeach; ?>
             </select>
+        <?php elseif ($block->getOptionType() === 'contact_form'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
+            <select name="contact_form" class="contact_form admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'subscription_success'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
+            <select name="subscription_success" class="subscription_success admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getSubscribedCustomers() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
+            </select>
         <?php endif; ?>
         <p class="select_name"><?= $block->escapeHtml(__('Store Name')) ?></p>
         <select name="store_id" class="store_id admin__control-select">

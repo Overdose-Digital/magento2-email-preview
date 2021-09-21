@@ -16,7 +16,7 @@ class UpdateData implements DataPatchInterface
     public $data = [
         [
             'type' => 'order',
-            'name' => 'New Order Confirmation Template'
+            'name' => 'New Order Confirmation Email Template'
         ],
         [
             'type' => 'invoice',
@@ -24,7 +24,7 @@ class UpdateData implements DataPatchInterface
         ],
         [
             'type' => 'customer',
-            'name' => 'Default Welcome Email'
+            'name' => 'Default Welcome Email Template'
         ],
         [
             'type' => 'shipment',
@@ -36,7 +36,15 @@ class UpdateData implements DataPatchInterface
         ],
         [
             'type' => 'password_reset',
-            'name' => 'Reset Customer Password'
+            'name' => 'Reset Customer Password Email Template'
+        ],
+        [
+            'type' => 'contact_form',
+            'name' => 'Contact Form Email Template'
+        ],
+        [
+            'type' => 'subscription_success',
+            'name' => 'Subscription Success Email Template'
         ]
     ];
 

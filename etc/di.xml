@@ -31,6 +31,8 @@
             <argument name="customer" xsi:type="object">Overdose\PreviewEmail\Model\Customer\Proxy</argument>
             <argument name="creditMemo" xsi:type="object">Overdose\PreviewEmail\Model\CreditMemo\Proxy</argument>
             <argument name="resetPassword" xsi:type="object">Overdose\PreviewEmail\Model\ResetPassword\Proxy</argument>
+            <argument name="contactForm" xsi:type="object">Overdose\PreviewEmail\Model\ContactForm\Proxy</argument>
+            <argument name="subscriptionSuccess" xsi:type="object">Overdose\PreviewEmail\Model\SubscriptionSuccess\Proxy</argument>
         </arguments>
     </type>
 </config>
