@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
@@ -8,9 +10,6 @@ namespace Overdose\PreviewEmail\Model;
  */
 class ContactForm implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
 {
-    public function __construct()
-    {
-    }
 
     /**
      * @param int $id

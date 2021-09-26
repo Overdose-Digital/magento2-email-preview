@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Model;
 
@@ -9,7 +11,7 @@ use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Customer\Helper\View as CustomerViewHelper;
 
 /**
- * Class CreditMemo
+ * Class ResetPassword
  * @package Overdose\PreviewEmail\Model
  */
 class ResetPassword implements \Overdose\PreviewEmail\Api\Data\PreviewTemplateVaribles
