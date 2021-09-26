@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 19-06-2021
+## [1.1.0] - 26-09-2021
 ### Added
 - Add proxies
 - Add proxy class for CreditMemo Model class
