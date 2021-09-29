@@ -3,9 +3,7 @@
     <table name="preview_template" resource="default" engine="innodb" comment="Preview Email Template Name">
         <column xsi:type="int" name="id" nullable="false" unsigned="true" identity="true" comment="Preview Template ID"/>
         <column xsi:type="text" name="type" nullable="false" comment="Preview Template Type"/>
-        <column xsi:type="text" name="fields" comment="Preview Template Fields"/>
         <column xsi:type="text" name="name" comment="Preview Type Name"/>
-        <column xsi:type="text" name="config_path" comment="System Config Path"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>

@@ -3,37 +3,93 @@
 ?>
 
 <div class="button-column">
-    <form class="form_template admin__fieldset form-inline"
-          action="<?php echo $this->getUrl('preview_email/index/preview') ?>" method="GET" id="form_template">
-        <?php if ($block->getOptionType() === 'order' || $block->getOptionType() === 'invoice'): ?>
-            <p class="select_name">Order ID</p>
+    <form class="form_template admin__fieldset form-inline" action="<?= $block->escapeHtmlAttr($this->getUrl('preview_email/index/preview')) ?>" method="GET" id="form_template">
+        <?php if ($block->getOptionType() === 'order'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Order ID')) ?></p>
             <select name="order_id" class="order_id admin__control-select">
-                <option disabled selected>Select Order ID</option>
-                <?php foreach ($block->getOrderIds() as $order) { ?>
-                    <option value="<?php echo $order ?>"><?php echo $order ?></option>
-                <?php } ?>
+                <option disabled selected><?= $block->escapeHtml(__('Select Order ID')) ?></option>
+                <?php foreach ($block->getOrderIds() as $order): ?>
+                    <option value="<?= $block->escapeHtmlAttr($order) ?>"><?= $block->escapeHtml($order) ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'invoice'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Order ID')) ?></p>
+            <select name="order_id" class="order_id admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Order ID')) ?></option>
+                <?php /** @var \Magento\Sales\Model\Order $order */  ?>
+                <?php foreach ($block->getOrders() as $order): ?>
+                    <?php if($order->hasInvoices()): ?>
+                        <option value="<?= $block->escapeHtmlAttr($order->getIncrementId()) ?>"><?= $block->escapeHtml($order->getIncrementId()) ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'shipment'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Order ID')) ?></p>
+            <select name="order_id" class="order_id admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Order ID')) ?></option>
+                <?php /** @var \Magento\Sales\Model\Order $order */  ?>
+                <?php foreach ($block->getOrders() as $order): ?>
+                    <?php if($order->hasShipments()): ?>
+                        <option value="<?= $block->escapeHtmlAttr($order->getIncrementId()) ?>"><?= $block->escapeHtml($order->getIncrementId()) ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'creditmemo'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Order ID')) ?></p>
+            <select name="creditmemo_id" class="creditmemo_id admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Order ID')) ?></option>
+                <?php /** @var \Magento\Sales\Model\Order $order */  ?>
+                <?php foreach ($block->getOrders() as $order): ?>
+                    <?php if($order->hasCreditmemos()): ?>
+                        <option value="<?= $block->escapeHtmlAttr($order->getIncrementId()) ?>"><?= $block->escapeHtml($order->getIncrementId()) ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </select>
         <?php endif; ?>
         <?php if ($block->getOptionType() === 'customer'): ?>
-            <p class="select_name">Customer Name</p>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
             <select name="customer_id" class="customer_id admin__control-select">
-                <option disabled selected>Select Customer</option>
-                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName) { ?>
-                    <option value="<?php echo $customerId ?>"><?php echo $customerName ?></option>
-                <?php } ?>
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'password_reset'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
+            <select name="password_reset" class="password_reset admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'contact_form'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
+            <select name="contact_form" class="contact_form admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getCustomersFullName() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php elseif ($block->getOptionType() === 'subscription_success'): ?>
+            <p class="select_name"><?= $block->escapeHtml(__('Customer Name')) ?></p>
+            <select name="subscription_success" class="subscription_success admin__control-select">
+                <option disabled selected><?= $block->escapeHtml(__('Select Customer')) ?></option>
+                <?php foreach ($block->getSubscribedCustomers() as $customerId => $customerName): ?>
+                    <option value="<?= $block->escapeHtmlAttr(__($customerId)) ?>"><?= $block->escapeHtml(__($customerName)) ?></option>
+                <?php endforeach; ?>
             </select>
         <?php endif; ?>
-        <p class="select_name">Store Name</p>
+        <p class="select_name"><?= $block->escapeHtml(__('Store Name')) ?></p>
         <select name="store_id" class="store_id admin__control-select">
-            <option disabled selected>Select Store</option>
-            <?php foreach ($block->getStores() as $storeId => $storeName) { ?>
-                <option value="<?php echo $storeId ?>"><?php echo $storeName ?></option>
-            <?php } ?>
+            <option disabled selected><?= $block->escapeHtml(__('Select Store')) ?></option>
+            <?php foreach ($block->getStores() as $storeId => $storeName): ?>
+                <option value="<?= $block->escapeHtmlAttr(__($storeId)) ?>"><?= $block->escapeHtml(__($storeName)) ?></option>
+            <?php endforeach; ?>
         </select>
-        <input name="id" id="preview_template_id" type="hidden" value="<?php echo $block->getPreviewTemplateId(); ?>"/>
-        <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */echo $block->getFormKey(); ?>"/>
+        <input name="id" id="preview_template_id" type="hidden" value="<?= $block->escapeHtmlAttr(__($block->getPreviewTemplateId())) ?>"/>
+        <input name="form_key" type="hidden" value="<?= $block->escapeHtmlAttr(__($block->getFormKey())) ?>"/>
         <button class="action-default button" type="button" id="popup-submit">
-            <span><?php echo __('Preview') ?></span>
+            <span><?= $block->escapeHtml(__('Preview')) ?></span>
         </button>
     </form
 </div>
@@ -41,7 +97,7 @@
 {
     "#form_template": {
         "Overdose_PreviewEmail/js/popup_email":{
-            "url": "<?php echo $this->getUrl('preview_email/index/preview') ?>"
+            "url": "<?= $block->escapeJs($this->getUrl('preview_email/index/preview')) ?>"
         }
     }
 }

@@ -6,8 +6,7 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\Form" name="template_form"
-                   template="Overdose_PreviewEmail::form.phtml"/>
+            <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\Form" name="template_form" template="Overdose_PreviewEmail::form.phtml"/>
         </referenceContainer>
     </body>
 </page>

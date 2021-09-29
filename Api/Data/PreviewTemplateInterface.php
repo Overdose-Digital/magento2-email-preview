@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Api\Data;
 
+/**
+ * Interface PreviewTemplateInterface
+ * @package Overdose\PreviewEmail\Api\Data
+ */
 interface PreviewTemplateInterface
 {
     /** Table Name */
@@ -10,52 +15,27 @@ interface PreviewTemplateInterface
     /** Table Fields */
     const ID = 'id';
     const TYPE = 'type';
-    const FIELDS = 'fields';
     const NAME = 'name';
-    const CONFIG_PATH = 'config_path';
 
     /**
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * @param string $name
      * @return PreviewTemplateInterface
      */
-    public function setName(string $name);
+    public function setName(string $name): PreviewTemplateInterface;
 
     /**
      * @param string $type
      * @return PreviewTemplateInterface
      */
-    public function setType(string $type);
+    public function setType(string $type): PreviewTemplateInterface;
 
     /**
      * @return string
      */
-    public function getType();
-
-    /**
-     * @return string
-     */
-    public function getFields();
-
-    /**
-     * @param string $fields
-     * @return PreviewTemplateInterface
-     */
-    public function setFields(string $fields);
-
-    /**
-     * @param string $configPath
-     * @return PreviewTemplateInterface
-     */
-    public function setConfigPath(string $configPath);
-
-    /**
-     * @return string
-     */
-    public function getConfigPath();
-
+    public function getType(): string;
 }

@@ -1,42 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Overdose\PreviewEmail\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\ResponseInterface;
-use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
+/**
+ * Class Index
+ * @package Overdose\PreviewEmail\Controller\Adminhtml\Index
+ */
 class Index extends Action
 {
-    /**
-     * @var bool|PageFactory
-     */
-    protected $resultPageFactory = false;
+    /** @var PageFactory */
+    protected $resultPageFactory;
 
     /**
+     * Index constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(
+    public function __construct (
         Context $context,
         PageFactory $resultPageFactory
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-
         parent::__construct($context);
+        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
-     * @return ResponseInterface|ResultInterface|Page
+     * @inheritDoc
      */
     public function execute()
     {
+        /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend((__('Preview Template Email')));
-
         return $resultPage;
     }
 }

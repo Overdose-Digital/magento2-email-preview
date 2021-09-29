@@ -4,10 +4,8 @@
         <referenceBlock name="menu.wrapper" remove="true"/>
         <referenceContainer name="header.inner.right" remove="true"/>
         <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="page.block"
-                   template="Overdose_PreviewEmail::preview.phtml">
-                <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\TemplateEmail"
-                       name="email.template.content" as="email.template.content"/>
+            <block class="Magento\Framework\View\Element\Template" name="page.block" template="Overdose_PreviewEmail::preview.phtml">
+                <block class="Overdose\PreviewEmail\Block\Adminhtml\View\Element\TemplateEmail" name="email.template.content" as="email.template.content"/>
             </block>
         </referenceContainer>
     </body>

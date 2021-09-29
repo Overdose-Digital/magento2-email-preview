@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Overdose_PreviewEmail::preview" title="Preview Email" module="Overdose_PreviewEmail" sortOrder="10"
-             action="preview_email/index/index" resource="Overdose_PreviewEmail::preview"
-             parent="Magento_Backend::marketing_communications"/>
+        <add id="Overdose_PreviewEmail::preview" title="Preview Email" module="Overdose_PreviewEmail" sortOrder="10" action="preview_email/index/index" resource="Overdose_PreviewEmail::preview" parent="Magento_Backend::marketing_communications"/>
     </menu>
 </config>

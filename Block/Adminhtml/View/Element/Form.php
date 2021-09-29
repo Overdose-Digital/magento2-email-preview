@@ -1,63 +1,61 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Overdose\PreviewEmail\Block\Adminhtml\View\Element;
 
-use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollection;
 use Magento\Framework\Data\Form\FormKey;
-use Magento\Sales\Model\Order;
-use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\StoreRepository;
+use Magento\Newsletter\Model\SubscriberFactory;
 
-class Form extends Template
+/**
+ * Class Form
+ * @package Overdose\PreviewEmail\Block\Adminhtml\View\Element
+ */
+class Form extends \Magento\Backend\Block\Template
 {
-    /**
-     * @var Collection
-     */
+    /** @var \Magento\Sales\Model\ResourceModel\Order\Collection */
     public $orderCollection;
-    /**
-     * @var StoreRepository
-     */
 
+    /** @var \Magento\Customer\Model\ResourceModel\Customer\Collection */
     public $customers;
-    /**
-     * @var StoreRepository
-     */
+
+    /** @var StoreRepository */
     public $storeRepository;
-    /**
-     * @var FormKey
-     */
-    /**
-     * @var FormKey
-     */
+
+    /** @var FormKey */
     protected $formKey;
+
+    /** @var SubscriberFactory */
+    private $subscriptionFactory;
 
     /**
      * Form constructor.
      * @param Context $context
-     * @param array $data
      * @param CollectionFactory $collectionFactory
      * @param FormKey $formKey
      * @param StoreRepository $storeRepository
      * @param CustomerCollection $customerFactory
+     * @param array $data
      */
-    public function __construct
-    (
+    public function __construct(
         Context $context,
         CollectionFactory $collectionFactory,
         FormKey $formKey,
         StoreRepository $storeRepository,
         CustomerCollection $customerFactory,
+        SubscriberFactory $subscriberFactory,
         array $data = []
     ) {
+        parent::__construct($context, $data);
         $this->formKey = $formKey;
         $this->customers = $customerFactory->create();
         $this->storeRepository = $storeRepository;
         $this->orderCollection = $collectionFactory->create();
-        parent::__construct($context, $data);
+        $this->subscriptionFactory = $subscriberFactory;
     }
 
     public function getPreviewTemplateId()
@@ -66,28 +64,36 @@ class Form extends Template
     }
 
     /**
-     * Get Order Ids
      * @return array
      */
-    public function getOrderIds()
+    public function getOrderIds(): array
     {
         $orders = [];
+        /** @var \Magento\Sales\Model\Order $order */
         foreach ($this->orderCollection as $order) {
-            /** @var Order $order */
             $orders[] = $order->getIncrementId();
         }
-
         return $orders;
     }
 
     /**
-     * Return Stores Name and Id
+     * @return \Magento\Sales\Model\ResourceModel\Order\Collection
+     */
+    public function getOrders(): \Magento\Sales\Model\ResourceModel\Order\Collection
+    {
+        return $this->orderCollection;
+    }
+
+    /**
      * @return array
      */
-    public function getStores()
+    public function getStores(): array
     {
+        /** @var \Magento\Store\Api\Data\StoreInterface[] $storesList */
         $storesList = $this->storeRepository->getList();
         $stores = [];
+
+        /** @var \Magento\Store\Api\Data\StoreInterface $store */
         foreach ($storesList as $store) {
             $stores[$store->getId()] = $store->getName();
         }
@@ -95,10 +101,9 @@ class Form extends Template
     }
 
     /**
-     * Get Customer Full Name
      * @return array
      */
-    public function getCustomersFullName()
+    public function getCustomersFullName(): array
     {
         $customersFullName = [];
         foreach ($this->customers->getData() as $customer) {
@@ -109,8 +114,32 @@ class Form extends Template
         return $customersFullName;
     }
 
-    public function getOptionType()
+    /**
+     * @return string
+     */
+    public function getOptionType(): string
     {
         return $this->getRequest()->getParam('type');
+    }
+
+    /**
+     * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getSubscribedCustomers(): array
+    {
+        $subscribedCustomers = [];
+
+        /** @var \Magento\Customer\Model\Customer $customer */
+        foreach ($this->customers->getItems() as $customer)
+        {
+            /** @var \Magento\Newsletter\Model\Subscriber $subscriber */
+            $subscriber = $this->subscriptionFactory->create();
+            $checkSubscriber = $subscriber->loadByEmail($customer->getEmail());
+            if ($checkSubscriber->isSubscribed()) {
+                $subscribedCustomers[$customer->getEntityId()] = $customer->getName();
+            }
+        }
+        return $subscribedCustomers;
     }
 }
