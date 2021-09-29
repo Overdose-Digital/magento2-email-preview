@@ -1,19 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 26-09-2021
+## [2.0.0] - 29-09-2021
 ### Added
-- Add proxies
-- Add proxy class for CreditMemo Model class
-- Add email template preview for shipment emails
-- Add email template preview for credit memo emails
-- Added email template preview for contact us, reset password and subscription success
-- Add changelog file
+- Added email template preview for email:
+  -- shipment
+  -- credit memo
+  -- contact us
+  -- reset password
+  -- subscription success
+- Added changelog file
 
 ### Changed
-- Search Result Interface added for getList method
+- Used proxies
+- Used `Search Result Interface` for `getList` method
 - Code refactoring doc blocks added for the entire module.
-- Interface added for getVars method of Model classes of all email templates
+- Added Interface for `getVars` method of Model classes of all email templates
+- Change variables names
+
+### Fixed
+- Update readme file
+- Fixed Order Confirmation Email Template Issues of incomplete information
 
 ### Remove
 - Remove Install, Upgrade script, replace by declarative schema, Patch/Data
@@ -21,8 +28,3 @@ All notable changes to this project will be documented in this file.
 - Remove imports, replace to full names
 - Remove unused code
 
-### Fixed
-- Edit doc blocks
-- Change variables names
-- Update readme file
-- Fixed Order Confirmation Email Template Issues of incomplete information

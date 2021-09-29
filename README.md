@@ -18,8 +18,9 @@ M2 extension provides opportunity to view emails from BO.
 - preview subscription subscription success emails
 
 #### Usage
-Move to Admin Menu->Marketing->Communications->Preview Email
-Select type of email to preview > view > select number ID(for Order/Invoice) or Customer Name(for Customers emails), select store > click 'preview' button 
+Move to Admin Menu->Marketing->Communications->Preview Email.  
+Select type of email to preview > view > select number ID(for Order/Invoice) or Customer Name(for Customers emails).  
+Select store > click 'preview' button.
 
 ## Support
 Magento 2.0 | Magento 2.1 | Magento 2.2 | Magento 2.3 | Magento 2.4
