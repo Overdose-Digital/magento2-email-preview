@@ -4,8 +4,8 @@ M2 extension provides opportunity to view emails from BO.
 
 ## Installation
 - Run: `composer config repositories.overdosedigital-email-preview vcs git@github.com:Overdose-Digital/magento2-email-preview.git`.
-- Add `overdose/email-preview` to "require section" in `composer.json` file OR run: `composer require overdose/email-preview --no-update`
-- `composer update overdose/email-preview`
+- Add `overdose/module-preview-email` to "require section" in `composer.json` file OR run: `composer require overdose/module-preview-email --no-update`
+- `composer update overdose/module-preview-email`
 
 ## Functionality
 - preview order emails
