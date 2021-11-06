@@ -2,10 +2,10 @@
     "name": "overdose/module-preview-email",
     "description" : "Overdose Preview Email",
     "require": {
-        "php": "^5.0|>=7.0"
+        "magento/framework": ">=101.0"
     },
     "type": "magento2-module",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "autoload": {
         "files": [
             "registration.php"

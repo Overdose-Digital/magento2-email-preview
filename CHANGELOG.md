@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 06-11-2021
+### Changed
+- Update `require`.
+- Migrate to GitHub.
+
 ## [2.0.0] - 29-09-2021
 ### Added
 - Added email template preview for email:
